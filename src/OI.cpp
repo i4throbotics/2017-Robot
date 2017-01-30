@@ -45,11 +45,11 @@ double OI::getAxis(int a) {
 }
 
 double OI::getLeftXAxis() {
-	return xboxController->GetX();
+	return getAxis(0);
 }
 
 double OI::getLeftYAxis() {
-	return xboxController->GetY();
+	return getAxis(1);
 }
 
 double OI::getRightXAxis() {

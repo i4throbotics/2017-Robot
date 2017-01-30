@@ -22,13 +22,7 @@ void Robot::RobotInit() {
 	wire.reset(new I2C(I2C::Port::kOnboard, 4));
 	x = 0;
 	done = false;
-	file.open("/home/lvuser/cameratestoutput.txt");
-	SmartDashboard::PutString("Auto Program", "Low Bar");
-	SmartDashboard::PutBoolean("Backwards", false);
-
-	SmartDashboard::PutBoolean("Custom Auto", false);
-	SmartDashboard::PutNumber("Auto Drive Distance", 1100);
-	SmartDashboard::PutNumber("Auto Drive Speed", 0.5);
+	//file.open("/home/lvuser/cameratestoutput.txt");
 	SmartDashboard::PutNumber("shooter speed", 0);
 	SmartDashboard::PutNumber("kP", 1);
 	SmartDashboard::PutNumber("kI", 0);
@@ -39,7 +33,7 @@ void Robot::RobotInit() {
 }
 
 void Robot::DisabledInit() {
-	file.close();
+	//file.close();
 }
 
 void Robot::DisabledPeriodic() {

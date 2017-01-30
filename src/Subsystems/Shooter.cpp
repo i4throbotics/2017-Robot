@@ -15,7 +15,7 @@
 
 Shooter::Shooter() :
 		Subsystem("Shooter") {
-	Motor = RobotMap::shooterMotor;
+	//Motor = RobotMap::shooterMotor;//TODO: change back once motor is plugged in
 }
 
 void Shooter::InitDefaultCommand() {
@@ -23,13 +23,14 @@ void Shooter::InitDefaultCommand() {
 }
 
 void Shooter::setSpeed(double speed) {
-	Motor->Set(speed);
+	//Motor->Set(speed);//TODO: change back once motor is plugged in
 
 }
 
 
 double Shooter::getVolt(){
-	return Motor->GetOutputVoltage();
+	return 0;//TODO: change back once motor is plugged in
+	//return Motor->GetOutputVoltage();
 }
 // Put methods for controlling this subsystem
 // here. Call these from Commands.

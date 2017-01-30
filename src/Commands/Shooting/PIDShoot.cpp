@@ -7,6 +7,8 @@ PIDShoot::PIDShoot() {
 	errorLast = 0;
 	errorDifference = 0;
 	errorSum = 0;
+	speed=0;
+	speedGoal=speed;
 }
 
 // Called just before this Command runs the first time

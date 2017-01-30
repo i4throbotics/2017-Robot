@@ -24,6 +24,7 @@ void PIDShootRotate::Execute() {
 		speed = (K_P * error)
 				+ (K_I * errorSum)
 				+ (K_D * errorDifference);
+		//TODO change to move the drive system instead
 		Robot::shooter->setSpeed(speed);
 }
 
