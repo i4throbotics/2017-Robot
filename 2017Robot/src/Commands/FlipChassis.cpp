@@ -12,6 +12,12 @@ void FlipChassis::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void FlipChassis::Execute() {
 	Robot::chassis->FlipDirection();
+	if(Robot::chassis->IsFlipped()){
+		SmartDashboard::PutString("Front", "SHOOTER");
+	}
+	else{
+		SmartDashboard::PutString("Front", "INTAKE");
+	}
 }
 
 // Make this return true when this Command no longer needs to run execute()

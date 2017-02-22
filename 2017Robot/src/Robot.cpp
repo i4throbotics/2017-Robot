@@ -53,6 +53,7 @@ void Robot::RobotInit() {
 	SmartDashboard::PutNumber("Shooting Ramp Speed", 0.04);
 	SmartDashboard::PutNumber("Stationary Ramp Speed", 0.0);
 
+	SmartDashboard::PutString("Front", "INTAKE");
 
 	shooterRamp->resetEncoder();
 
@@ -85,12 +86,6 @@ void Robot::TeleopInit() {
 void Robot::TeleopPeriodic() {
 	Scheduler::GetInstance()->Run();
 	SmartDashboard::PutNumber("Ramp Encoder", Robot::shooterRamp->getEncoder());
-	if(chassis->IsFlipped()){
-		SmartDashboard::PutString("Front", "SHOOTER");
-	}
-	else{
-		SmartDashboard::PutString("Front", "INTAKE");
-	}
 
 
 }
