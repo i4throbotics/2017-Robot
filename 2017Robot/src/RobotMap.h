@@ -37,6 +37,8 @@ public:
 
 	static std::shared_ptr<CANTalon> shooterMotor;
 	static std::shared_ptr<CANTalon> shooterRamp;
+	static std::shared_ptr<Counter> shooterRampCounter;
+	static std::shared_ptr<AnalogTrigger> shooterRampTrigger;
 	static std::shared_ptr<SpeedController> climberMotor1;
 	static std::shared_ptr<SpeedController> climberMotor2;
 	static std::shared_ptr<SpeedController> intakeMotor;

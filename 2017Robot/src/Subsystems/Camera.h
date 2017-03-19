@@ -12,8 +12,7 @@ private:
 	// for methods that implement subsystem capabilities
 	std::unique_ptr<I2C> wire;
 
-	bool gearDetected;
-	bool goalDetected;
+	int blocks;
 	double angularOffset;
 	double xOffset;
 	double yOffset;
@@ -26,12 +25,8 @@ public:
 		return angularOffset;
 	}
 
-	bool isGearDetected() const {
-		return gearDetected;
-	}
-
-	bool isGoalDetected() const {
-		return goalDetected;
+	int getBlocks() const{
+		return blocks;
 	}
 
 	double getXOffset() const {
@@ -42,6 +37,8 @@ public:
 		return yOffset;
 	}
 	void PrintValues();
+
+	void UpdatePixy();
 
 };
 

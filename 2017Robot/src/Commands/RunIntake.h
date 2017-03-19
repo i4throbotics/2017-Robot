@@ -5,7 +5,8 @@
 #include "../Robot.h"
 
 class RunIntake: public Command {
-
+private:
+	double const speed = 0.8;
 public:
 	RunIntake();
 

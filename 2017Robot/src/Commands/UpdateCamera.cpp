@@ -13,6 +13,7 @@ void UpdateCamera::Initialize() {
 void UpdateCamera::Execute() {
 	Robot::camera->Update();
 	Robot::camera->PrintValues();
+	//Robot::camera->UpdatePixy();
 }
 
 bool UpdateCamera::IsFinished() {

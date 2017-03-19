@@ -11,14 +11,14 @@ private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
 	std::shared_ptr<CANTalon> Ramp;
+	std::shared_ptr<Counter> RampCounter;
+	int totalCount;
+	int lastCount;
 public:
 	ShooterRamp();
 	void InitDefaultCommand();
-	double getEncoder();
 	void setRampSpeed(double speed);
-	void resetEncoder();
-	void brake();
-	void unbrake();
+	int getCount();
 };
 
 #endif

@@ -13,7 +13,7 @@ void RunIntake::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void RunIntake::Execute() {
-	Robot::intake->setSpeed(SmartDashboard::GetNumber("Intake Speed",0));
+	Robot::intake->setSpeed(speed);
 }
 
 // Make this return true when this Command no longer needs to run execute()

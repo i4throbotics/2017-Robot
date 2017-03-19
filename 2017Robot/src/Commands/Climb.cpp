@@ -3,6 +3,7 @@
 
 Climb::Climb() :
 		Command() {
+	Requires(Robot::climber.get());
 }
 
 void Climb::Initialize() {
@@ -10,7 +11,7 @@ void Climb::Initialize() {
 }
 
 void Climb::Execute() {
-	Robot::climber->setSpeed(-SmartDashboard::GetNumber("Climb Speed", 0));
+	Robot::climber->setSpeed(Robot::oi->getTriggerAxis());
 }
 
 bool Climb::IsFinished() {

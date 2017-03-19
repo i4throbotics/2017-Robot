@@ -16,12 +16,11 @@
 
 Camera::Camera() :
 		Subsystem("Camera") {
-	wire.reset(new I2C(I2C::Port::kOnboard, 4));
-	gearDetected = false;
-	goalDetected = false;
+	wire.reset(new I2C(I2C::Port::kOnboard, 8));
 	angularOffset = 0;
 	xOffset = 0;
 	yOffset = 0;
+	blocks = 0;
 }
 
 void Camera::InitDefaultCommand() {
@@ -29,36 +28,41 @@ void Camera::InitDefaultCommand() {
 }
 
 void Camera::Update() {
-	uint8_t buffer[4 * sizeof(float)];
+	uint8_t buffer[3 * sizeof(float)];
 	float temp;
-	wire->Read(0, 4 * sizeof(float), &buffer[0]);
-	std::memcpy(&temp, &buffer[0 * sizeof(float)], sizeof(float));
-	if ((int) temp == -1) {
-		goalDetected = false;
-		gearDetected = false;
-	}
-	else if ((int) temp == 0) {
-		goalDetected = true;
-		gearDetected = false;
-	}
-	else if ((int) temp == 1) {
-		goalDetected = false;
-		gearDetected = true;
-	}
+	wire->ReadOnly(3 * sizeof(float), &buffer[0]);
+	std::memcpy(&temp, &buffer[0], sizeof(float));
+	blocks = temp;
 	std::memcpy(&temp, &buffer[1 * sizeof(float)], sizeof(float));
-	angularOffset = temp;
+	double visionX = temp;
 	std::memcpy(&temp, &buffer[2 * sizeof(float)], sizeof(float));
-	xOffset = temp;
-	std::memcpy(&temp, &buffer[3 * sizeof(float)], sizeof(float));
-	yOffset = temp;
+	double visionY = temp;
+	xOffset = 0;
+	yOffset =visionY;
+	angularOffset = std::atan(.55 * (100 - visionX) /  (16150 / (visionY + 36)));
 }
 
-void Camera::PrintValues(){
+void Camera::PrintValues() {
 	SmartDashboard::PutNumber("y Offset", yOffset);
 	SmartDashboard::PutNumber("x Offset", xOffset);
-	SmartDashboard::PutNumber("angular offset", angularOffset);
-	SmartDashboard::PutBoolean("gear detected", gearDetected);
-	SmartDashboard::PutBoolean("goal detected", goalDetected);
+	SmartDashboard::PutNumber("angular offset", angularOffset * 180 / M_PI);
+	SmartDashboard::PutNumber("blocks", blocks);
+}
+
+void Camera::UpdatePixy() {
+	uint8_t intBuffer[14];
+	uint8_t buffer[14];
+	wire->ReadOnly(14, &intBuffer[0]);
+	for (int i = 0; i < 14; i += 2) {
+		std::memcpy(&intBuffer[i+1], &buffer[i], 1);
+		std::memcpy(&intBuffer[i], &buffer[i + 1], 1);
+	}
+	for(int i = 0; i < 14; i+=2){
+		uint16_t temp;
+		std::memcpy(&temp, &intBuffer[i], 2);
+		SmartDashboard::PutNumber("byteNumber" + std::to_string(i), temp);
+	}
+
 }
 
 // Put methods for controlling this subsystem

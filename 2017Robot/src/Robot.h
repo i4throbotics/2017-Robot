@@ -29,6 +29,8 @@
 #include "OI.h"
 
 class Robot : public IterativeRobot {
+private:
+	static std::unique_ptr<I2C> wire;
 public:
 
 	//static std::shared_ptr<Preferences> prefs;

@@ -8,13 +8,10 @@ PIDShoot::PIDShoot() {
 	errorDifference = 0;
 	errorSum = 0;
 	speed=0;
-	speedGoal=speed;
 }
 
 // Called just before this Command runs the first time
 void PIDShoot::Initialize() {
-	speed = SmartDashboard::GetNumber("shooter speed", 0);
-	speedGoal = speed;
 	Robot::shooter->setSpeed(speed);
 
 }
@@ -24,13 +21,11 @@ void PIDShoot::Execute() {
 		errorDifference = error - errorLast;
 		errorLast = error;
 		errorSum += error;
-		double acceleration = (SmartDashboard::GetNumber("kP",1) * error)
-				+ (SmartDashboard::GetNumber("kI",0) * errorSum)
-				+ (SmartDashboard::GetNumber("kD",0.12) * errorDifference);
+		double acceleration = (kP * error)
+				+ (kI * errorSum)
+				+ (kD * errorDifference);
 		speed += acceleration;
 		Robot::shooter->setSpeed(speed);
-		SmartDashboard::PutNumber("actual speed", Robot::shooter->getVolt()/12);
-		SmartDashboard::PutNumber("Output Speed", speed);
 }
 
 // Make this return true when this Command no longer needs to run execute()

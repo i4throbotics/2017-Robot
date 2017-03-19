@@ -24,10 +24,10 @@
  */
 class PIDGoalRotate: public Command {
 private:
-	double const tolerance = 10;
-	double const kP = 0.8;
-	double const kI = 0.5;
-	double const kD = 0.1;
+	double tolerance =4*M_PI/180;
+	double kP = 0.4;
+	double kI = 0;
+	double kD = 0;
 	double errorLast;
 	double errorDifference;
 	double errorSum;
